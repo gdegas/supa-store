@@ -14,21 +14,19 @@ const theme = {
 };
 
 const StyledPage = styled.div`
-  color: black;
+  color: ${props => props.theme.black};
   background-color: white;
 `
 
 const Inner = styled.div`
   max-width: ${props => props.theme.maxWidth};
-  background: ${props => props.theme.red};
   margin: 0 auto;
   padding: 2rem;
 `
 injectGlobal`
   @font-face {
     font-family: 'radnika_next';
-    src: url('/static/radnikanext-medium-webfont.woff2')
-    format('woff2');
+    src: url('/static/radnikanext-medium-webfont.woff2') format('woff2');
     font-weight: normal;
     font-style: normal;
   }
@@ -44,6 +42,7 @@ injectGlobal`
     margin: 0;
     font-size: 1.5rem;
     line-height: 2;
+    font-family: 'radnika_next';
   }
   a {
     text-decoration: none;

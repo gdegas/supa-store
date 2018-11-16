@@ -1,8 +1,9 @@
 import React from 'react';
+import Items from '../components/Items'
 
 const Home = props => (
   <div>
-    <h1>hello Home</h1>
+    <Items />
   </div>
 );
 
