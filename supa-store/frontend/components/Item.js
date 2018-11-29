@@ -1,6 +1,6 @@
 import React, { Component } from 'react';
-import Link from 'next/link'
-import PropTypes from 'prop-types'
+import Link from 'next/link';
+import PropTypes from 'prop-types';
 import ItemStyles from './styles/ItemStyles';
 import Title from './styles/Title';
 import PriceTag from './styles/PriceTag';
