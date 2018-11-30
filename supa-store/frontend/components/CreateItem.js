@@ -28,10 +28,10 @@ const CREATE_ITEM_MUTATION = gql`
 
  class CreateItem extends Component {
   state = {
-    title: 'cool shoes',
-    description: 'best shoes',
-    image: 'dog.jpg',
-    largeImage: 'largeDog.jpg',
+    title: '',
+    description: '',
+    image: '',
+    largeImage: '',
     price: 0
   }
 
@@ -50,6 +50,28 @@ const CREATE_ITEM_MUTATION = gql`
     const res = createItem()
   }
 
+  uploadFile = async (e) => {
+    // grab the file
+    const files = e.target.files;
+    // create formdata
+    const formData = new FormData()
+    formData.append('file', files[0])
+    formData.append('upload_preset', 'sickfits')
+   try {
+      const res = await fetch('https://api.cloudinary.com/v1_1/dhopribya/image/upload', {
+      method: 'POST',
+      body: formData
+    })
+    const image = await res.json()
+    this.setState({
+      image: image.secure_url,
+      largeImage: image.eager[0].secure_url
+    })
+  } catch(e) {
+    console.log(e)
+  }
+  }
+
   render() {
     return (
       <Mutation
@@ -59,6 +81,10 @@ const CREATE_ITEM_MUTATION = gql`
         {(createItem, {loading, error, called, data}) => (
           <Form onSubmit={async (e) => {
             e.preventDefault();
+            if(!this.state.image || !this.state.largeImage){
+              alert('item not yet uploaded')
+              return;
+            }
             const res = await createItem();
             Router.push({
               pathname: '/item',
@@ -70,6 +96,11 @@ const CREATE_ITEM_MUTATION = gql`
               disabled={loading}
               aria-busy={loading}
             >
+              <label htmlFor="file">
+                Image
+                <input onChange={this.uploadFile} type="file" id="file" name="file" required />
+              </label>
+              {this.state.image && <img src={this.state.image} alt="uploaded image" width="200"/> }
               <label htmlFor="title">
                 Title
                 <input onChange={this.handleChange} value={this.state.title} type="text" id="title" name="title" placeholder="Title" required />
