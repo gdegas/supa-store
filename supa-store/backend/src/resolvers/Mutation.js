@@ -15,8 +15,17 @@ const Mutations = {
     }, info);
 
     return item;
+  },
+  async updateItem(parent, args, ctx, info) {
+    const updatedItem = { ...args };
+    delete updatedItem.id;
+    return ctx.db.mutation.updateItem({
+      data: updatedItem,
+      where: {
+        id: args.id,
+      }
+    }, info);
   }
-
 };
 
 module.exports = Mutations;
