@@ -15,10 +15,9 @@ server.express.use(cookieParser());
 server.express.use((req, res, next) => {
   // get the token from teh cookie
   const { token } = req.cookies;
-  console.log(token)
   if(token) {
-    const user = jwt.verify(token, process.env.APP_SECRET)
-    console.log('user: ', user);
+    const { userId } = jwt.verify(token, process.env.APP_SECRET)
+    req.userId = userId;
   }
   next()
 })
