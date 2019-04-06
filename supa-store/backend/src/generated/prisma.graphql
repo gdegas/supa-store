@@ -1,5 +1,5 @@
 # source: https://us1.prisma.sh/gerard-p-degas-fa258d/sick-fits/dev
-# timestamp: Fri Jan 25 2019 17:01:01 GMT-0800 (PST)
+# timestamp: Fri Apr 05 2019 10:29:52 GMT-0700 (Pacific Daylight Time)
 
 type AggregateItem {
   count: Int!
@@ -34,6 +34,7 @@ type ItemConnection {
 }
 
 input ItemCreateInput {
+  id: ID
   title: String!
   description: String!
   largeImage: String
@@ -468,6 +469,7 @@ type UserConnection {
 }
 
 input UserCreateInput {
+  id: ID
   name: String!
   email: String!
   password: String!
